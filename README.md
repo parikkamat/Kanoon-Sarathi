@@ -90,4 +90,46 @@ Screenshots of the competency questions, corresponnding SPARQL queries and outpu
 
 ## Using Django Framework and SPARQL Endpoint to Develop GUI
 
-First you need to create the SPARQL endpoint for this work, by the help of HEROKU platform to complete this task so what you need to do is just create one account on heroku and follow this ![steps](https://github.com/semintelligence/Tutorials/tree/main/Creating%20SPARQL%20endpoint) and then you done with this task then use this endpoint in DJANGO to fire the SPARQL Query and show your result in frontend.
+First you need to create the SPARQL endpoint for this work, by the help of HEROKU platform to complete this task so what you need to do is just create one account on heroku and follow this [steps](https://github.com/semintelligence/Tutorials/tree/main/Creating%20SPARQL%20endpoint) and then you done with this task then use this endpoint in DJango to fire the SPARQL Query and show your result in frontend.
+
+```
+from SPARQLWrapper import SPARQLWrapper, JSON , CSV
+import pandas as pd
+import numpy as np
+
+class get_data:
+
+    def __init__(self):
+        self.sparql = SPARQLWrapper('https://kanoon.herokuapp.com/LegalCase/sparql')
+
+    def case2_judge_name(self):
+        
+        self.sparql.setQuery("""
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+        PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+        PREFIX schema: <http://schema.org/> 
+        PREFIX : <http://example.org/#> 
+        SELECT ?JudgesofCase2
+        WHERE {
+        ?Case dc:hasInstance :case2.
+        :case2  dc:hasCourtOfficial ?Judges .
+        ?Judges  rdfs:hasName ?JudgesofCase2 .
+        }
+        """
+        )
+        
+        self.sparql.setReturnFormat(JSON)
+        results = self.sparql.query().convert()
+        
+        
+        judge = []
+        for result in results["results"]["bindings"]:
+              judge.append( result["JudgesofCase2"]["value"])
+             
+    
+        return judge
+```
+
+As shown in this above code snippet sparqlwrapper is the api which you are using to pass the sparl endpoint url and then next step is write the query in seperate functions and call this function in views.py and by the help of ginger syntax you can show your result in your GUI.
