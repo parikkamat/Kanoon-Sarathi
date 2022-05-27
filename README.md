@@ -25,54 +25,7 @@ The two major steps for the construction of the knowledge graph are Named
 Entity Recognition (NER) and Relation Extraction (RE). Various legal entities
 identified from the corpus by referring to the [NyOn](https://github.com/semintelligence/NyOn) Ontology are combined together with the relations extracted for the construction of the Knowledge Graph
 (KG). 
-### Natural Entity Recognition
-The entity extraction is substantially carried out with the help of regular
-expressions and triggering target words. Examples of rules used to extract the entities "JURISDICTION" and "LOCATION" are given below.
-```python
-#JURISDICTION
-jur = re.search(r"(\w+\W+){1}(JURISDICTION)", contents)
-if jur:
-    outf.write("JURISDICTION - "+jur.group(0)+"\n")
 
-#LOCATION
-loc = re.search('(\w{4,}) (High Court)', contents)
-if loc:
-    if ((loc.group(1)).lower()=='pradesh'):
-        loc = re.search('(\w{4,}) (Pradesh)', contents,re.IGNORECASE)
-        outf.write("LOCATION - "+loc.group()+"\n")
-    elif ((loc.group(1)).lower()=='kashmir'):
-        outf.write("LOCATION - Jammu and Kashmir"+'\n')
-    elif ((loc.group(1)).lower()=='haryana'):
-        outf.write("LOCATION - Punjab and Haryana"+'\n')
-    else:
-        outf.write("LOCATION - "+loc.group(1)+"\n")
-
-```
-The output from the NER phase is stored in a single text file with the token
-and entity separated by the delimiter ’-’.
-
-### Relation Extraction
-Relation extraction phase identifies the relation between the entities extracted
-in the NER phase. The NyOn Ontology is referred for identifying the various
-relations between the extracted entities. ince there are
-no sentences in the output of the NER phase, switch case is used for annotating
-the relations between the extracted entities. An example of python rule for extracting and annotating
-relations is given below.
-
-```python
-    #CASE_NAME
-    if tok_ent['Entity'][i]=='CASE_NAME':
-        CASENAME=tok_ent['Token'][i]
-    agrument=tok_ent['Entity'][i]
-    match agrument:
-
-    #JURISDICTION
-    case 'JURISDICTION':
-        if(CASENAME):
-            outf.write(CASENAME+' hasJurisdiction '+tok_ent['Entity'][i]+'\n')
-        else:
-            outf.write('Case hasJurisdiction '+tok_ent['Entity'][i]+'\n')
-```
 ### Triple Construction
 
 The Triples were formed by annotating the entities obtained from NER with the relations exrtracted in the RE phase.
