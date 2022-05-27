@@ -87,3 +87,7 @@ Screenshots of the competency questions, corresponnding SPARQL queries and outpu
 4. List all the parties that come under case 'K.T. Varghese & Ors VS. State of Kerala & Ors.'
 ![Query 4](https://github.com/semintelligence/KING/blob/main/query/query4.JPG "Query 4")
 ![Output 4](https://github.com/semintelligence/KING/blob/main/output/output4.JPG)
+
+## Using Django Framework and SPARQL Endpoint to Develop GUI
+
+First you need to create the SPARQL endpoint for this work, by the help of HEROKU platform to complete this task so what you need to do is just create one account on heroku and follow this ![steps](https://github.com/semintelligence/Tutorials/tree/main/Creating%20SPARQL%20endpoint) and then you done with this task then use this endpoint in DJANGO to fire the SPARQL Query and show your result in frontend.
