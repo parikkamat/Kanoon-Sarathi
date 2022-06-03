@@ -133,3 +133,7 @@ class get_data:
 ```
 
 As shown in this above code snippet sparqlwrapper is the api which you are using to pass the sparl endpoint url and then next step is write the query in seperate functions and call this function in views.py and by the help of ginger syntax you can show your result in your GUI.
+
+# UI For Legal Text Extraction With Help Of Django
+
+I am using Heroku freehosting site for creation or hosting the website so [Kanoon-Sarathi](https://kanoon-sarathi.herokuapp.com/) is the website that will take the queries and then extract result using SPARQL. 
